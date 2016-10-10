@@ -1,9 +1,10 @@
 
-from django.http import HttpResponse
-from .models import Question
-# from django.template import loader
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-# from django.http import Http404
+from django.urls import reverse
+
+from .models import Question
+
 
 # Create your views here.
 
@@ -27,4 +28,13 @@ def results(request, question_id):
 
 
 def vote(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+
+    try:
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    except:
+        pass
+    else:
+        pass
+
     return HttpResponse("You're voting on question %s" % question_id)
